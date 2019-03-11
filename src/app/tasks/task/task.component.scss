@@ -1,0 +1,20 @@
+mat-card {
+    max-width: 400px;
+    margin: 5px;
+    height: 90px;
+    text-align: center;
+
+    mat-card-title{
+        font-size: 1.25rem;
+    }
+      
+    .todo{
+            background-color: peru;
+    }
+    .wip{
+            background-color: cornsilk;
+    }
+    .done{
+            background-color: darkolivegreen;
+    }
+}

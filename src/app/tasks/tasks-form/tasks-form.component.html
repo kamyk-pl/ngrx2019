@@ -1,0 +1,11 @@
+<section>
+    <h2>
+        New Task
+    </h2>
+    <mat-card>
+        <mat-form-field>
+            <input matInput placeholder="Task title" value="" #title>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="createTask(title)" type="button">Create Task</button>
+    </mat-card>
+</section>

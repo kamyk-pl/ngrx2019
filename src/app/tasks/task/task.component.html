@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-title>
+      {{task.title}}
+  </mat-card-title>
+  <mat-card-actions>
+      <button mat-flat-button *ngIf="isNotToDo()" (click)="moveToToDo()" class="todo">To do</button>
+      <button mat-flat-button *ngIf="isNotWiP()" (click)="moveToWiP()" class="wip">In progress</button>
+      <button mat-flat-button *ngIf="isNotDone()" (click)="moveToDone()" class="done">Done</button>
+   </mat-card-actions>
+</mat-card>
