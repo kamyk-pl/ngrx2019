@@ -5,7 +5,7 @@ export interface TasksState {
    items: ReadonlyArray<Task>;
 }
 
-const initialTasksState = {
+export const initialTasksState = {
   items: [
     new Task('Pack bag', Status.TODO),
     new Task('Do some skiing', Status.TODO),

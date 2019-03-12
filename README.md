@@ -13,3 +13,9 @@
   * Write a unit test for your reducer
   
 _Since we're not relying on internal component state anymore, adding tasks won't work for a while._
+
+### Step 3
+
+* Refactor `TaskBoardComponent` to use `| async` instead of subscribing to `tasks$`
+* Extract tasks selection logic to `store/selectors.ts`, use `createFeatureSelector` and `createSelector` functions,
+
