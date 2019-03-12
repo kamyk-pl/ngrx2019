@@ -35,3 +35,10 @@ _Since we're not relying on internal component state anymore, adding tasks won't
 * Register the effect with `EffectsModule.forRoot`
 * Add a **temporarily** fetch button to `TaskBoardComponent` that will dispatch `LoadTask` action
 
+
+### Step 6
+
+* Implement adding a new task: 
+  * Create `AddTask` action
+  * Handle the action in the reducer
+  * Dispatch the action in `TaskBoardComponent` in appropriate handler

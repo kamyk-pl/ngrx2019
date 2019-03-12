@@ -9,6 +9,8 @@ import { environment } from '../../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { reducersMap } from './store';
+import { TasksEffects } from './store/effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [TasksFormComponent, TasksBoardComponent, TaskComponent],
@@ -28,6 +30,8 @@ import { reducersMap } from './store';
       }]),
       StoreModule.forRoot(reducersMap),
       StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+      EffectsModule.forRoot([TasksEffects]),
+
   ],
 
 })

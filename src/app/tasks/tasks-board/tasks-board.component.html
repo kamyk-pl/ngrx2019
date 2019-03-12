@@ -11,6 +11,8 @@
           <button mat-flat-button [color]="mode === status.WIP && 'primary'" routerLink="/board/{{status.WIP}}"> WiP</button>
           <button mat-flat-button [color]="mode === status.DONE && 'primary'" routerLink="/board/{{status.DONE}}"> Done</button>
         </nav>
+        <button mat-raised-button color="primary" (click)="fetchTasks()" > Fetch</button>
+
       <section class="grid">
         <h2 class="todo">
           To Do
