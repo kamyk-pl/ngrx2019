@@ -25,3 +25,13 @@ _Since we're not relying on internal component state anymore, adding tasks won't
 * Handle updating a task in the reducer, use task `id` field to find proper one 
 * Test the reducer (think of it as comparing _state after_ passing an action with _expected state_)
 * Dispatch the update action on task move (`TaskBoardComponent`)
+
+### Step 5
+
+* Add `TasksService.fetchTasks` method that will return task with some delay, to emulate the HTTP request behaviour (use `timer` from `rxjs`)
+* Be sure that `TasksService` returns other tasks than in the default state
+* Add `LoadTask` and `TasksLoaded` actions, handle them in the reducer (add `loading: boolean` state)
+* Write an effect that reloads tasks on `LoadTask` action and emits `TasksLoaded` action 
+* Register the effect with `EffectsModule.forRoot`
+* Add a **temporarily** fetch button to `TaskBoardComponent` that will dispatch `LoadTask` action
+

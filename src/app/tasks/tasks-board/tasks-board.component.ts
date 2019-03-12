@@ -7,6 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
 import { selectTaskItems } from '../store/selectors';
 import { Observable } from 'rxjs';
+import { UpdateTask } from '../store/actions';
 
 @Component({
   selector: 'app-tasks-board',
@@ -61,8 +62,10 @@ export class TasksBoardComponent implements OnInit {
   }
 
   onTaskStatusChange({ task, newStatus }) {
-    this.taskService.updateStatus(task, newStatus);
-    this.getData();
+    this.store$.dispatch(new UpdateTask({
+      ...task,
+      status: newStatus,
+    }));
   }
 
   onNewTask(task: Task) {
