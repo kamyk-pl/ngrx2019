@@ -21,7 +21,7 @@
         <h2 class="done">
           Done
         </h2>
-        <app-task *ngFor="let task of tasks" [task]="task" (changeStatus)="onTaskStatusChange($event)"
+        <app-task *ngFor="let task of tasks$ | async" [task]="task" (changeStatus)="onTaskStatusChange($event)"
           [ngClass]="task.status">
         </app-task>
       </section>

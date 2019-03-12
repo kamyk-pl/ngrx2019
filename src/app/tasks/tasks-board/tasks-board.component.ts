@@ -4,7 +4,9 @@ import { Task, Status } from '../model/models';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgrxModuleState } from '../store';
 import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { selectTaskItems } from '../store/selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-board',
@@ -13,7 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class TasksBoardComponent implements OnInit {
 
-  tasks: Task[];
+  tasks$: Observable<Task[]>;
   mode: Status;
   title: string;
   status = Status;
@@ -32,10 +34,10 @@ export class TasksBoardComponent implements OnInit {
 
   getData() {
 
-    this.store$.pipe(
-      select(state => state.tasks.items),
-      map((taskItems: Task[]) => this.mode ? taskItems.filter(task => task.status === this.mode) : taskItems)
-    ).subscribe((taskItems: Task[]) => this.tasks = taskItems)
+    this.tasks$ = this.store$.pipe(
+      select(selectTaskItems),
+      map((taskItems: Task[]) => this.mode ? taskItems.filter(task => task.status === this.mode) : taskItems),
+    );
 
     switch (this.mode) {
       case Status.TODO: {
