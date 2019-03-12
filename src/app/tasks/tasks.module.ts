@@ -7,6 +7,8 @@ import { TaskComponent } from './task/task.component';
 import { MaterialModule } from '../material/material.module';
 import { environment } from '../../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { reducersMap } from './store';
 
 @NgModule({
   declarations: [TasksFormComponent, TasksBoardComponent, TaskComponent],
@@ -24,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         path: 'board/:status',
         component: TasksBoardComponent,
       }]),
+      StoreModule.forRoot(reducersMap),
       StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
 
