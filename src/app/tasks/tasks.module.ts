@@ -11,6 +11,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducersMap } from './store';
 import { TasksEffects } from './store/effects';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './store/router-store';
 
 @NgModule({
   declarations: [TasksFormComponent, TasksBoardComponent, TaskComponent],
@@ -31,6 +33,7 @@ import { EffectsModule } from '@ngrx/effects';
       StoreModule.forRoot(reducersMap),
       StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
       EffectsModule.forRoot([TasksEffects]),
+      StoreRouterConnectingModule.forRoot({ serializer: CustomSerializer }),
 
   ],
 

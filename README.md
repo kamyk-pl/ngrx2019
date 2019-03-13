@@ -54,3 +54,7 @@ _Since we're not relying on internal component state anymore, adding tasks won't
 * Import and register `routerReducer` in your present `ActionReducerMap` (suggested key: `router`)
 * Wire up `StoreRouterConnectingModule.forRoot({ stateKey: 'router' })` with your module
  
+### Step 9
+
+* Use router `ROUTER_NAVIGATION` to start fetching the data
+* Write selector to extract mode from url
