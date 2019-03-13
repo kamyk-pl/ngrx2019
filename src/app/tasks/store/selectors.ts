@@ -4,3 +4,4 @@ import { Task } from '../model/models';
 
 export const selectTaskState = createFeatureSelector('tasks');
 export const selectTaskItems = createSelector( selectTaskState, (tasksState: TasksState): ReadonlyArray<Task> => tasksState.items);
+export const selectLoadingState = createSelector( selectTaskState, (tasksState: TasksState): boolean => tasksState.loading);

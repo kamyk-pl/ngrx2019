@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgrxModuleState } from '../store';
 import { Store, select } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
-import { selectTaskItems } from '../store/selectors';
+import { selectTaskItems, selectLoadingState } from '../store/selectors';
 import { Observable } from 'rxjs';
 import { UpdateTask, LoadTasks, AddTasks } from '../store/actions';
 
@@ -17,6 +17,7 @@ import { UpdateTask, LoadTasks, AddTasks } from '../store/actions';
 export class TasksBoardComponent implements OnInit {
 
   tasks$: Observable<Task[]>;
+  loading$ = this.store$.pipe(select(selectLoadingState));
   mode: Status;
   title: string;
   status = Status;

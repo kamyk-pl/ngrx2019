@@ -13,7 +13,7 @@
         </nav>
         <button mat-raised-button color="primary" (click)="fetchTasks()" > Fetch</button>
 
-      <section class="grid">
+      <section class="grid" *ngIf="!(loading$ | async);else loading">
         <h2 class="todo">
           To Do
         </h2>
@@ -27,6 +27,13 @@
           [ngClass]="task.status">
         </app-task>
       </section>
+      <ng-template #loading>
+        <section class='loader-container'>
+          <h1>Loading...</h1>
+          <div class='loading'>
+          </div>        
+        </section>
+      </ng-template>
     </section>
 
     <section class="new">

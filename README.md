@@ -48,4 +48,9 @@ _Since we're not relying on internal component state anymore, adding tasks won't
 
 * Use loading value from state to show/hide spinner when loading data
 
+### Step 8
+
+* Extend `NgrxModuleState` to have router key of type `RouterReducerState<RouterStateUrl>` - the `RouterStateUrl` was implemented for you in `store/router-store.ts`
+* Import and register `routerReducer` in your present `ActionReducerMap` (suggested key: `router`)
+* Wire up `StoreRouterConnectingModule.forRoot({ stateKey: 'router' })` with your module
  
