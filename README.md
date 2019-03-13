@@ -42,3 +42,10 @@ _Since we're not relying on internal component state anymore, adding tasks won't
   * Create `AddTask` action
   * Handle the action in the reducer
   * Dispatch the action in `TaskBoardComponent` in appropriate handler
+
+
+### Step 7
+
+* Use loading value from state to show/hide spinner when loading data
+
+ 

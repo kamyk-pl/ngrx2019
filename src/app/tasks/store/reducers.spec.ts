@@ -1,7 +1,6 @@
 import { initialTasksState, tasksReducer } from "./reducers";
 import { Task, Status } from '../model/models';
-import { UpdateTask } from './actions';
-
+import { UpdateTask, AddTasks } from './actions';
 
 describe('Task reducer', () => {
 
@@ -31,5 +30,21 @@ describe('Task reducer', () => {
         }
         const stateAfter = tasksReducer(initialState, action);
         expect(stateAfter).toEqual(expectedState);
+    })
+    it('should add task', ()=>{
+        const task = new Task('Write test', Status.TODO);
+        const newTask = new Task('Write test 2', Status.TODO);
+        const action = new AddTasks(newTask);
+        const initialState = {
+            ...state,
+            items : [task]
+        }
+        const expectedState = {
+            ...state,
+            items : [task, newTask]
+        }
+        const stateAfter = tasksReducer(initialState, action);
+        expect(stateAfter).toEqual(expectedState);
+
     })
   });

@@ -1,6 +1,6 @@
 import { Status, Task } from '../model/models';
 import { Action } from '@ngrx/store';
-import { UPDATE_TASK, UpdateTask, LOAD_TASKS, TASKS_LOADED, TasksLoaded } from './actions';
+import { UPDATE_TASK, UpdateTask, LOAD_TASKS, TASKS_LOADED, TasksLoaded, ADD_TASKS, AddTasks } from './actions';
 
 export interface TasksState {
    items: ReadonlyArray<Task>;
@@ -39,6 +39,12 @@ export function tasksReducer(state: Readonly<TasksState> = initialTasksState, ac
     case TASKS_LOADED: {
       const { payload } = action as TasksLoaded;
       return { ...state, items:payload, loading: false }
+      
+    }
+
+    case ADD_TASKS :{
+      const { payload } = action as AddTasks;
+      return { ...state, items: [...state.items, payload] }
 
     }
 
@@ -46,5 +52,4 @@ export function tasksReducer(state: Readonly<TasksState> = initialTasksState, ac
       return state;
   }
 
-  return state;
 }
