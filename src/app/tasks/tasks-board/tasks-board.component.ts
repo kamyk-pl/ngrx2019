@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgrxModuleState } from '../store';
 import { Store, select } from '@ngrx/store';
 import { map, tap, withLatestFrom } from 'rxjs/operators';
-import { selectTaskItems, selectLoadingState, selectRouterState, selectStatus } from '../store/selectors';
+import {selectTaskItems, selectLoadingState, selectRouterState, selectStatus, selectTaskItemsByStatus} from '../store/selectors';
 import { Observable } from 'rxjs';
 import { UpdateTask, LoadTasks, AddTasks } from '../store/actions';
 
@@ -22,9 +22,7 @@ export class TasksBoardComponent implements OnInit {
     map(mode => mode ?  mode : Status.ALL)
   );
   tasks$ = this.store$.pipe(
-    select(selectTaskItems),
-    withLatestFrom(this.mode$),
-    map(([taskItems, mode]) => mode ? taskItems.filter(task => mode === Status.ALL || task.status === mode) : taskItems),
+    select(selectTaskItemsByStatus),
   );
   title$ = this.mode$.pipe(
       map(this.getTitleBasedOnStatus)

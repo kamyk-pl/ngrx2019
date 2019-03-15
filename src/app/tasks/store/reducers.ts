@@ -1,20 +1,15 @@
-import { Status, Task } from '../model/models';
-import { Action } from '@ngrx/store';
-import { UPDATE_TASK, UpdateTask, LOAD_TASKS, TASKS_LOADED, TasksLoaded, ADD_TASKS, AddTasks } from './actions';
-import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import {Task} from '../model/models';
+import {Action} from '@ngrx/store';
+import {UPDATE_TASK, UpdateTask, LOAD_TASKS, TASKS_LOADED, TasksLoaded, ADD_TASKS, AddTasks} from './actions';
+import {ROUTER_NAVIGATION} from '@ngrx/router-store';
 
 export interface TasksState {
-   items: ReadonlyArray<Task>;
-   loading: boolean;
+  items: ReadonlyArray<Task>;
+  loading: boolean;
 }
 
 export const initialTasksState = {
   items: [
-    new Task('Pack bag', Status.TODO),
-    new Task('Do some skiing', Status.TODO),
-    new Task('Learn sth', Status.WIP),
-    new Task('Meet colleagues', Status.WIP),
-    new Task('Pick trainings', Status.DONE),
   ],
   loading: false
 };
@@ -24,29 +19,29 @@ export function tasksReducer(state: Readonly<TasksState> = initialTasksState, ac
 
   switch (action.type) {
     case UPDATE_TASK: {
-      const { payload } = action as UpdateTask;
+      const {payload} = action as UpdateTask;
       const items = state.items.map(
         task => payload.id === task.id ?
-          { ...task, ...payload } :
+          {...task, ...payload} :
           task
       );
-      return { ...state, items };
+      return {...state, items};
     }
 
-    case ROUTER_NAVIGATION :{}
+    case ROUTER_NAVIGATION :
     case LOAD_TASKS: {
-      return { ...state, loading: true }
+      return {...state, loading: true};
     }
 
     case TASKS_LOADED: {
-      const { payload } = action as TasksLoaded;
-      return { ...state, items:payload, loading: false }
-      
+      const {payload} = action as TasksLoaded;
+      return {...state, items: payload, loading: false};
+
     }
 
-    case ADD_TASKS :{
-      const { payload } = action as AddTasks;
-      return { ...state, items: [...state.items, payload] }
+    case ADD_TASKS : {
+      const {payload} = action as AddTasks;
+      return {...state, items: [...state.items, payload]};
 
     }
 
