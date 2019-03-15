@@ -4,8 +4,8 @@ import { Task, Status } from '../model/models';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgrxModuleState } from '../store';
 import { Store, select } from '@ngrx/store';
-import { map, tap } from 'rxjs/operators';
-import { selectTaskItems, selectLoadingState } from '../store/selectors';
+import { map, tap, withLatestFrom } from 'rxjs/operators';
+import { selectTaskItems, selectLoadingState, selectRouterState, selectStatus } from '../store/selectors';
 import { Observable } from 'rxjs';
 import { UpdateTask, LoadTasks, AddTasks } from '../store/actions';
 
@@ -16,11 +16,21 @@ import { UpdateTask, LoadTasks, AddTasks } from '../store/actions';
 })
 export class TasksBoardComponent implements OnInit {
 
-  tasks$: Observable<Task[]>;
   loading$ = this.store$.pipe(select(selectLoadingState));
-  mode: Status;
-  title: string;
+  mode$ = this.store$.pipe(
+    select(selectStatus),
+    map(mode => mode ?  mode : Status.ALL)
+  );
+  tasks$ = this.store$.pipe(
+    select(selectTaskItems),
+    withLatestFrom(this.mode$),
+    map(([taskItems, mode]) => mode ? taskItems.filter(task => mode === Status.ALL || task.status === mode) : taskItems),
+  );
+  title$ = this.mode$.pipe(
+      map(this.getTitleBasedOnStatus)
+  );
   status = Status;
+
 
   constructor(private taskService: TasksService,
     private router: Router,
@@ -28,37 +38,23 @@ export class TasksBoardComponent implements OnInit {
     private store$: Store<NgrxModuleState>, ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      this.mode = params.status;
-      this.getData();
-    });
+  
   }
 
-  getData() {
-
-    this.tasks$ = this.store$.pipe(
-      select(selectTaskItems),
-      map((taskItems: Task[]) => this.mode ? taskItems.filter(task => task.status === this.mode) : taskItems),
-    );
-
-    switch (this.mode) {
+  getTitleBasedOnStatus(status: Status) {
+    switch (status) {
       case Status.TODO: {
-        this.title = 'Tasks ToDo';
-        break;
+        return 'Tasks ToDo';
       }
       case Status.WIP: {
-        this.title = 'Tasks in progress';
-        break;
+        return 'Tasks in progress';
       }
       case Status.DONE: {
-        this.title = 'Tasks done';
-        break;
+        return 'Tasks done';
       }
       default: {
-        this.title = 'Kanban board';
-        break;
+        return 'Kanban board';
       }
-
     }
   }
 
@@ -76,5 +72,4 @@ export class TasksBoardComponent implements OnInit {
   onNewTask(task: Task) {
     this.store$.dispatch(new AddTasks(task));
   }
-
 }

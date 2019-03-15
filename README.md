@@ -63,3 +63,8 @@ _Since we're not relying on internal component state anymore, adding tasks won't
 
 * Adjust `TaskBoardComponent` component to use just observables
 * Remove fetch button from step 5
+
+### Step 11
+* Adjust selectors
+* Fix issue with too often calling fetch data
+* Since `ROUTER_NAVIGATION` is used to load data clean initial state in`task-reducer` file
