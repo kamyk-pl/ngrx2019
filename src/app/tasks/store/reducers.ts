@@ -1,6 +1,7 @@
 import { Status, Task } from '../model/models';
 import { Action } from '@ngrx/store';
 import { UPDATE_TASK, UpdateTask, LOAD_TASKS, TASKS_LOADED, TasksLoaded, ADD_TASKS, AddTasks } from './actions';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 export interface TasksState {
    items: ReadonlyArray<Task>;
@@ -32,6 +33,7 @@ export function tasksReducer(state: Readonly<TasksState> = initialTasksState, ac
       return { ...state, items };
     }
 
+    case ROUTER_NAVIGATION :{}
     case LOAD_TASKS: {
       return { ...state, loading: true }
     }

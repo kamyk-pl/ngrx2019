@@ -58,3 +58,8 @@ _Since we're not relying on internal component state anymore, adding tasks won't
 
 * Use router `ROUTER_NAVIGATION` to start fetching the data
 * Write selector to extract mode from url
+
+### Step 10
+
+* Adjust `TaskBoardComponent` component to use just observables
+* Remove fetch button from step 5
