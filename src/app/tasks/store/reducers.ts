@@ -9,8 +9,7 @@ export interface TasksState {
 }
 
 export const initialTasksState = {
-  items: [
-  ],
+  items: [],
   loading: false
 };
 

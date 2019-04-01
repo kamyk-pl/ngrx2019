@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../services/tasks.service';
-import { Task, Status } from '../model/models';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { NgrxModuleState } from '../store';
-import { Store, select } from '@ngrx/store';
-import { map, tap, withLatestFrom } from 'rxjs/operators';
-import {selectTaskItems, selectLoadingState, selectRouterState, selectStatus, selectTaskItemsByStatus} from '../store/selectors';
-import { Observable } from 'rxjs';
-import { UpdateTask, LoadTasks, AddTasks } from '../store/actions';
+import {Component, OnInit} from '@angular/core';
+import {TasksService} from '../services/tasks.service';
+import {Task, Status} from '../model/models';
+import {Router, ActivatedRoute} from '@angular/router';
+import {NgrxModuleState} from '../store';
+import {Store, select} from '@ngrx/store';
+import {map} from 'rxjs/operators';
+import {selectLoadingState, selectStatus, selectTaskItemsByStatus} from '../store/selectors';
+import {UpdateTask, LoadTasks, AddTasks} from '../store/actions';
 
 @Component({
   selector: 'app-tasks-board',
@@ -19,24 +18,25 @@ export class TasksBoardComponent implements OnInit {
   loading$ = this.store$.pipe(select(selectLoadingState));
   mode$ = this.store$.pipe(
     select(selectStatus),
-    map(mode => mode ?  mode : Status.ALL)
+    map(mode => mode ? mode : Status.ALL)
   );
   tasks$ = this.store$.pipe(
     select(selectTaskItemsByStatus),
   );
   title$ = this.mode$.pipe(
-      map(this.getTitleBasedOnStatus)
+    map(this.getTitleBasedOnStatus)
   );
   status = Status;
 
 
   constructor(private taskService: TasksService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private store$: Store<NgrxModuleState>, ) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private store$: Store<NgrxModuleState>) {
+  }
 
   ngOnInit() {
-  
+
   }
 
   getTitleBasedOnStatus(status: Status) {
@@ -56,11 +56,11 @@ export class TasksBoardComponent implements OnInit {
     }
   }
 
-  fetchTasks(){
+  fetchTasks() {
     this.store$.dispatch(new LoadTasks());
   }
 
-  onTaskStatusChange({ task, newStatus }) {
+  onTaskStatusChange({task, newStatus}) {
     this.store$.dispatch(new UpdateTask({
       ...task,
       status: newStatus,
