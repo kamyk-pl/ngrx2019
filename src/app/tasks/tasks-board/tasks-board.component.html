@@ -4,14 +4,17 @@
   </mat-card-title>
   <div class="wrapper">
     <section class="board">
-      <nav>
+        <nav *ngIf="mode$ | async as mode ">
           Show:
           <button mat-flat-button [color]="!mode && 'primary'" routerLink="/board"> All</button>
           <button mat-flat-button [color]="mode === status.TODO && 'primary'" routerLink="/board/{{status.TODO}}" > To Do</button>
           <button mat-flat-button [color]="mode === status.WIP && 'primary'" routerLink="/board/{{status.WIP}}"> WiP</button>
           <button mat-flat-button [color]="mode === status.DONE && 'primary'" routerLink="/board/{{status.DONE}}"> Done</button>
         </nav>
-      <section class="grid">
+        <button mat-flat-button (click)="fetchData()">Fetch</button>
+
+        <section class="grid" 
+              *ngIf="!(loading$ | async);else loading">
         <h2 class="todo">
           To Do
         </h2>
@@ -21,10 +24,17 @@
         <h2 class="done">
           Done
         </h2>
-        <app-task *ngFor="let task of tasks" [task]="task" (changeStatus)="onTaskStatusChange($event)"
+        <app-task *ngFor="let task of tasks$ | async" [task]="task" (changeStatus)="onTaskStatusChange($event)"
           [ngClass]="task.status">
         </app-task>
       </section>
+      <ng-template #loading>
+        <section class='loader-container'>
+          <h1>Loading...</h1>
+          <div class='loading'>
+          </div>        
+        </section>
+      </ng-template>
     </section>
 
     <section class="new">

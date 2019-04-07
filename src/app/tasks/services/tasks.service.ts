@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task, Status } from '../model/models';
-import { of } from 'rxjs';
+import { of, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +13,16 @@ export class TasksService {
   constructor() { 
 
     this.tasks = [
-        new Task('Learn NgRx', Status.TODO),
-        new Task('Learn Git', Status.DONE),
-        new Task('Learn JavaScript', Status.WIP),
-        new Task('Learn Angular Basics', Status.DONE),
+        new Task('Learn NgRx 2', Status.TODO),
+        new Task('Learn Git 2', Status.DONE),
+        new Task('Learn JavaScript 2', Status.WIP),
+        new Task('Learn Angular Basics 2', Status.DONE),
     ]
 
   }
 
-  getTasks(){
-      return this.tasks;
-  }
-
-  getToDoTasks(){
-    return this.tasks.filter(e=> e.status === Status.TODO);
-  }
-
-  getWiPTasks(){
-    return this.tasks.filter(e=> e.status === Status.WIP);
-  }
-
-  getDoneTasks(){
-    return this.tasks.filter(e=> e.status === Status.DONE);
+  fetchTasks(){
+    return timer(3000).pipe(map(() => this.tasks));
   }
   
   addTask(task: Task){
